@@ -1,0 +1,479 @@
+
+* {
+  box-sizing: border-box;
+}
+body {
+  position: relative;
+  padding: 0; margin: 0;
+  overflow-x: hidden;
+}
+:root {
+  --bg-color-a: #00d1b2;
+  --bg-color-b: #404040;
+  --bg-color-c: #d73a3a;
+  --primary: #3c53c7;
+  --gray:  #B9B8C3;
+}
+
+.close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+.plus {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.plus:hover {
+  opacity: 1;
+}
+.plus:before, .plus:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.plus:before {
+  transform: rotate(90deg);
+}
+
+.popup {
+  width: 80%;
+  padding: 15px;
+  left: 0;
+  margin-left: 5%;
+  border: 1px solid rgb(1,82,73);
+  border-radius: 10px;
+  color: rgb(1,82,73);
+  background: white;
+  position: absolute;
+  top: 15%;
+  box-shadow: 5px 5px 5px #000;
+  z-index: 10001;
+  font-weight: 700;
+  text-align: center;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 10000;
+  display :none;
+}
+
+@media (min-width: 768px) {
+  .popup {
+    width: 66.66666666%;
+    margin-left: 16.666666%;
+  }
+}
+@media (min-width: 992px) {
+  .popup {
+    width: 80%;
+    margin-left: 25%;
+  }
+}
+@media (min-width: 1200px) {
+  .popup {
+    width: 33.33333%;
+    margin-left: 33.33333%;
+  }
+}
+
+.dialog-btn {
+  background-color:#00d1b2;
+  color: white;
+  font-weight: 700;
+  border: 1px solid #00d1b2;
+  border-radius: 10px;
+  height: 30px;
+  width: 30%;
+}
+.dialog-btn:hover {
+  background-color:#363636;
+  cursor: pointer;
+}
+
+.gg-trash-empty {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1.2));
+    width: 10px;
+    height: 12px;
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 2px;
+    border-bottom-left-radius: 1px;
+    border-bottom-right-radius: 1px;
+    margin-top: 7.5px
+}
+
+.gg-trash-empty:hover {
+    color: #ff0000;
+    cursor: pointer;
+}
+
+.gg-trash-empty::after,
+.gg-trash-empty::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute
+}
+.gg-trash-empty::after {
+    background: currentColor;
+    border-radius: 3px;
+    width: 16px;
+    height: 2px;
+    top: -4px;
+    left: -5px
+}
+.gg-trash-empty::before {
+    width: 10px;
+    height: 4px;
+    border: 2px solid;
+    border-bottom: transparent;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    top: -7px;
+    left: -2px
+}
+
+#calHead a[class=plus] {
+    border: 0; padding: 10px; margin: -24.5px 1500px 0 0;
+    cursor: pointer;
+}
+
+.navbar-item {
+    color : #ffffff;
+    text-decoration : none;
+}
+
+#calHead {
+  display: flex; align-items: center;
+  padding: 15px;
+  background: var(--bg-color-a);
+}
+#calPeriod { flex-grow: 1; }
+#calHead input, #calHead select {
+  font-size: 24px;
+  border: 0; outline: none;
+  color: #fff; background: 0;
+  cursor: pointer;
+}
+#calHead option { color: #000; }
+#calYear {
+  width: 100px;
+  margin-left: 10px;
+}
+
+
+#calDays, .calRowHead, .calRowBack { display: flex; }
+#calDays, .calRow, .calRowHead, .calRowEvt {
+  position: relative;
+  width: 100%;
+}
+.calRow { min-height: 100px; }
+.calRowHead, .calRowEvt { z-index: 2; }
+.calRowBack {
+  position: absolute;
+  top: 0; left: 0; z-index: 1;
+  width: 100%; height: 100%;
+}
+.calRowEvt {
+  padding: 3px 10px;
+  margin-top: 5px;
+  font-size: 12px;
+  white-space: nowrap; text-overflow: ellipsis;
+  overflow: hidden; cursor: pointer;
+  border-radius: 10px;
+}
+
+
+.calCell { width: 14.2857%; }
+.w1 { width: 14.2857%; } .w2 { width: 28.5714%; } .w3 { width: 42.8571%; }
+.w4 { width: 57.1428%; } .w5 { width: 71.4285%; } .w6 { width: 85.7142%; }
+.w7 { width: 100%; }
+.o1 { left: 14.2857%; } .o2 { left: 28.5714%; } .o3 { left: 42.8571%; }
+.o4 { left: 57.1428%; } .o5 { left: 71.4285%; } .o6 { left: 85.7142%; }
+#calDays .calCell {
+  color: #fff; background: var(--bg-color-b);
+  font-weight: 700; text-align: center;
+  padding: 15px 0;
+}
+
+input[type=button]:not(#calAdd):not(#calNext):not(#calBack) {
+  color: #d9d9d9;
+  font-weight: 10000; text-align: left;
+  font-size : 85px;
+  padding: -100px 0px 0px ;
+  opacity: 100%;
+}
+
+input[type=button] { cursor: pointer;}
+
+.calRowHead .calCell {
+  font-size: 14px;
+  font-weight: 700;
+  color: #b5b5b5;
+  padding: 5px;
+}
+.calRowBack .calCell { border: 1px solid #f5f5f5; }
+.calBlank { background: #f5f5f5; }
+.calToday { background: #feffd3;}
+.calToday:hover { background-color: #e4e5bd; }
+
+
+#calForm {
+  position:absolute; top: 0; left: 0; z-index: 999;
+  width: 100vw; height: 100%; min-height: 100vh;
+  padding: 0; margin: 0; border: 0;
+  background: rgba(0,0,0,0.5);
+}
+#calForm:is([open]), #calForm form {
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+}
+#calForm form {
+  position: relative;
+  width: 450px; padding: 15px;
+  border-radius: 10px;
+  background: #fff;
+}
+#evtCX {
+  position: absolute;
+  top: 0; right: 0;
+  padding: 10px;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--bg-color-c);
+  cursor: pointer;
+}
+#calForm h2 { margin: 0 0 5px 0; }
+#calForm .evt50 { width: 50%; }
+#calForm .evt100 { width: 100%; }
+#calForm .evt50, #calForm .evt100 { padding: 8px; }
+#calForm label, #calForm input[type=date], #calForm input[type=color], #calForm input[type=text] {
+  display: block;
+  width: 100%;
+}
+#calForm label {
+  color: #a1a1a1;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+#calForm input[type=date], #calForm input[type=text] {
+  padding: 5px;
+  border: 1px solid #eee;
+  background: #f5f5f5;
+}
+#calForm input[type=color] { height: 30px; border: 0; }
+#calForm input[type=button], #calForm input[type=submit] {
+  border: 0; padding: 10px; margin: 10px 2px 0 0;
+  color: #fff; background: var(--bg-color-c);
+  cursor: pointer;
+}
+#calForm a[class=close] {
+    border: 0; padding: 10px; margin: 10px 10px 0 0;
+    cursor: pointer;
+}
+
+#calDayInfo {
+  position:absolute; top: 0; left: 0; z-index: 999;
+  width: 100vw; height: 100%; min-height: 100vh;
+  padding: 0; margin: 0; border: 0;
+  background: rgba(0,0,0,0.5);
+}
+#calDayInfo:is([open]), #calForm form {
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+}
+#calDayInfo form {
+  position: relative;
+  width: 450px; padding: 15px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+#calDayInfo h2 { margin: 0 0 5px 0; }
+#calDayInfo .dayTask { width: 100%; }
+
+#calDayInfo label, #calDayInfo input[type=datetime-local], #calDayInfo input[type=color], #calDayInfo input[type=text] {
+  display: block;
+  width: 85%;
+}
+#calDayInfo label {
+  color: #a1a1a1;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+#calDayInfo input[type=datetime-local], #calDayInfo input[type=text] {
+  padding: 5px;
+  border: 1px solid #eee;
+  background: #f5f5f5;
+}
+#calDayInfo input[type=color] { height: 30px; border: 0; }
+#calDayInfo input[type=button] {
+  border: 0; padding: 10px; margin: 10px 2px 0 0;
+  color: #fff; background: var(--bg-color-c);
+  cursor: pointer;
+}
+
+#calDayInfo a[type=submit] {
+  border: 0; padding: 10px; margin: -30px -25px 0 0;
+  cursor: pointer;
+}
+
+.dayTask {
+    display: none;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    color: #00104B;
+}
+.cbx {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer; }
+  .cbx span:not(.between) {
+    display: none;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    color: #00104B;
+    }
+    .cbx span:nth-last-child(1) {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      transform: scale(1);
+      vertical-align: middle;
+      border: 1px solid #B9B8C3;
+      transition: all .2s ease; }
+      .cbx span:nth-last-child(1) svg {
+        position: absolute;
+        z-index: 1;
+        top: 8px;
+        left: 6px;
+        fill: none;
+        stroke: white;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 16px;
+        stroke-dashoffset: 16px;
+        transition: all .3s ease;
+        transition-delay: .1s;
+        transform: translate3d(0, 0, 0); }
+      .cbx span:nth-last-child(1):before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: #506EEC;
+        display: block;
+        transform: scale(0);
+        opacity: 1;
+        border-radius: 50%;
+        transition-delay: .2s; }
+    .cbx span:first-child {
+      margin: 0px 100px 0px 0px; }
+      .cbx span:first-child:after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 0;
+        height: 1px;
+        width: 100%;
+        background: #B9B8C3;
+        transform-origin: 0 0;
+        transform: scaleX(0); }
+
+#between0 {
+    width: 0px;
+}
+#between1 {
+    width: 0px;
+}
+#between2 {
+    width: 0px;
+}
+#between3 {
+    width: 0px;
+}
+#between4 {
+    width: 0px;
+}
+#between5 {
+    width: 0px;
+}
+#between6 {
+    width: 0px;
+}
+#between7 {
+    width: 0px;
+}
+#between8 {
+    width: 0px;
+}
+#between9 {
+    width: 0px;
+}
+  .cbx:hover span:first-child {
+    border-color: #00d1b2; }
+
+.inp-cbx:checked + .cbx span:nth-last-child(1) {
+  border-color: #00d1b2;
+  background: #00d1b2;
+  animation: check .6s ease; }
+  .inp-cbx:checked + .cbx span:nth-last-child(1) svg {
+    stroke-dashoffset: 0; }
+  .inp-cbx:checked + .cbx span:nth-last-child(1):before {
+    transform: scale(2.2);
+    opacity: 0;
+    transition: all .6s ease; }
+
+.inp-cbx:checked + .cbx span:first-child {
+  color: #B9B8C3;
+  transition: all .3s ease; }
+  .inp-cbx:checked + .cbx span:first-child:after {
+    transform: scaleX(1);
+    transition: all .3s ease; }
+
+@keyframes check {
+  50% {
+    transform: scale(1.2); } }
+

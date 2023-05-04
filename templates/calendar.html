@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task Calendar</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Offline Javascript Calendar App">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+
+    <script defer src="static/calendar.js"></script>
+    <link rel="stylesheet" href="static/calendar.css">
+  </head>
+
+  <body>
+    <div id="calHead">
+      <div id="calPeriod">
+        <input id="calBack" type="button" class="mi" value="&lt;">
+        <select id="calMonth"></select>
+        <input id="calYear" type="number">
+        <input id="calNext" type="button" class="mi" value="&gt;">
+      </div>
+      <a id="calAdd" class="plus"> </a>
+      <a href="{{ url_for('auth') }}" class="navbar-item"> Logout </a>
+      <input id="userId" type="hidden" value="{{user_id}}">
+    </div>
+
+    <div id="calWrap">
+      <div id="calDays"></div>
+      <div id="calBody"></div>
+    </div>
+
+    <dialog id="calForm">
+      <form method="dialog">
+        <a id="evtCX" class="close"> </a>
+        <h2 class="evt100">CALENDAR TASK</h2>
+        <div class="evt100">
+          <label>DATE</label>
+          <input id="evtStart" type="date" required>
+        </div>
+        <div class="evt100">
+          <label>TASK</label>
+          <input id="evtTxt" type="text" required>
+        </div>
+        <div class="evt100">
+          <input type="hidden" id="evtID">
+          <input type="button" id="evtDel" value="Delete">
+          <input type="submit" id="evtSave" value="Save">
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="calDayInfo">
+      <form method="dialog">
+        <h2> DAY TASKS </h2>
+        <a type="submit" id="DayFormCX" class="close"> </a>
+        <div class="overlay" id="dialog-container">
+            <div class="popup">
+              <p>Task will be deleted. Continue?</p>
+              <div class="text-right">
+                <input type="cancel" class="dialog-btn btn-cancel" id="cancel" value="Cancel">
+                <input type="confirm" class="dialog-btn btn-primary" id="confirm" value="Ok">
+              </div>
+            </div>
+          </div>
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx0" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx0">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between0"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+
+          </label>
+          <span class="gg-trash-empty" id="trash0"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx1" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx1">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between1"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash1"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx2">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between2"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash2"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx3" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx3">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between3"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash3"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx4" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx4">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between4"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash4"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx5" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx5">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between5"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash5"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx6" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx6">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between6"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash6"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx7" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx7">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between7"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash7"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx8" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx8">
+            <span class="between" id="between8"></span>
+            <span>Reward yourself with a nap</span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash8"> </span>
+        </div>
+
+        <div class="dayTask">
+          <input class="inp-cbx" id="cbx9" type="checkbox" style="display: none;" />
+          <label class="cbx" for="cbx9">
+            <span>Reward yourself with a nap</span>
+            <span class="between" id="between9"></span>
+            <span>
+              <svg width="12px" height="9px" viewbox="0 0 12 9">
+                <polyline points="1 5 4 8 11 1"></polyline>
+              </svg>
+            </span>
+          </label>
+          <span class="gg-trash-empty" id="trash9"> </span>
+        </div>
+
+      </form>
+    </dialog>
+  </body>
+</html>
